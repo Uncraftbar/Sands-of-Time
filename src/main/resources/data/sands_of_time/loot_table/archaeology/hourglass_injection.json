@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:loot_table",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "sands_of_time:entropic_hourglass"
+        }
+      ]
+    }
+  ]
+}

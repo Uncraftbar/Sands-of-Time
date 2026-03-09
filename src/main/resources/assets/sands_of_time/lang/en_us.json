@@ -1,0 +1,47 @@
+{
+  "item.sands_of_time.entropic_hourglass": "Entropic Hourglass",
+
+  "tooltip.relics.entropic_hourglass.description": "An ancient temporal artifact, thrumming with contained entropy. It passively absorbs the fabric of time, storing it as raw temporal energy. This energy can be unleashed to hyper-accelerate machines or supercharge living creatures.",
+
+  "tooltip.relics.entropic_hourglass.ability.chrono_accumulation": "Chrono-Accumulation",
+  "tooltip.relics.entropic_hourglass.ability.chrono_accumulation.description": "Passively absorbs temporal energy at a rate of %1$s seconds of stored time per real second. Stored time fuels all active abilities.",
+
+  "tooltip.relics.entropic_hourglass.ability.temporal_injection": "Temporal Injection",
+  "tooltip.relics.entropic_hourglass.ability.temporal_injection.description": "Right-click a block to inject temporal energy, accelerating it up to %1$sx speed for 30 seconds. Works on machines, furnaces, crops, saplings, and any block with random ticks. Cycle through speeds by clicking the same block.",
+
+  "tooltip.relics.entropic_hourglass.ability.bio_overclock": "Bio-Overclock",
+  "tooltip.relics.entropic_hourglass.ability.bio_overclock.description": "Right-click a living entity to overclock its biological processes at %1$sx speed for 30 seconds. Re-clicking the same entity extends duration and can upgrade speed. Costs stored time proportional to potency.",
+
+  "tooltip.relics.entropic_hourglass.leveling_source.chrono_accumulation.title": "Temporal Accumulation",
+  "tooltip.relics.entropic_hourglass.leveling_source.chrono_accumulation.description": "Gain %1$s XP every 60 seconds of stored temporal energy (%2$s).",
+
+  "tooltip.relics.entropic_hourglass.leveling_source.temporal_injection.title": "Block Acceleration",
+  "tooltip.relics.entropic_hourglass.leveling_source.temporal_injection.description": "Gain 1 XP for every 30 seconds of stored time spent accelerating a block (%2$s).",
+
+  "tooltip.relics.entropic_hourglass.leveling_source.bio_overclock.title": "Entity Overclock",
+  "tooltip.relics.entropic_hourglass.leveling_source.bio_overclock.description": "Gain 1 XP for every 30 seconds of stored time spent overclocking a living entity (%2$s).",
+
+  "message.sands_of_time.stored_time": "§6⌛ Stored Time: §f%s",
+  "message.sands_of_time.not_tickable": "§cThis block cannot be accelerated.",
+  "message.sands_of_time.no_target_block": "§cNo block in range.",
+  "message.sands_of_time.no_target_entity": "§cNo valid entity found.",
+  "message.sands_of_time.no_line_of_sight": "§cNo line of sight to target entity!",
+  "message.sands_of_time.insufficient_time": "§cNot enough stored temporal energy!",
+  "message.sands_of_time.block_blacklisted": "§cThis block is blacklisted from acceleration.",
+  "message.sands_of_time.entity_blacklisted": "§cThis entity is blacklisted from overclock.",
+  "message.sands_of_time.block_accelerated": "§aAccelerated to %sx (cost: %s)",
+  "message.sands_of_time.block_refreshed": "§eRefreshed at %sx (cost: %s)",
+  "message.sands_of_time.entity_overclocked": "§aOverclocked %s to %sx (cost: %s)",
+
+  "tooltip.sands_of_time.entropic_hourglass.stored_time": "§6⌛ §eStored Time: §f%s",
+
+  "entity.sands_of_time.time_accelerator": "Time Accelerator",
+
+  "config.sands_of_time.entropic_hourglass": "Entropic Hourglass",
+  "config.sands_of_time.entropic_hourglass.stored_time_hud_mode": "Stored Time HUD Mode",
+  "config.sands_of_time.entropic_hourglass.stored_time_hud_mode.tooltip": "Controls when the stored time HUD is displayed. ON_USE: only after using an ability. ALWAYS: always visible. OFF: never.",
+  "config.sands_of_time.entropic_hourglass.block_blacklist": "Block Blacklist",
+  "config.sands_of_time.entropic_hourglass.block_blacklist.tooltip": "List of block IDs that cannot be accelerated by Temporal Injection.",
+  "config.sands_of_time.entropic_hourglass.entity_blacklist": "Entity Blacklist",
+  "config.sands_of_time.entropic_hourglass.entity_blacklist.tooltip": "List of entity IDs that cannot be overclocked by Bio-Overclock."
+}

@@ -1,0 +1,40 @@
+# Compiled output
+build/
+bin/
+out/
+
+# Gradle
+.gradle/
+gradle/wrapper/gradle-wrapper.jar
+
+# IDE - Eclipse
+.classpath
+.project
+.settings/
+.eclipse/
+
+# IDE - IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# IDE - VS Code
+.vscode/
+
+# Runtime
+run/
+runs/
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Anvil ledger (dev tool, not source)
+.anvil_ledger.db
+
+# Environment / secrets
+.env
+*.env

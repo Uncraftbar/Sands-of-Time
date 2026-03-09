@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "sands_of_time:item/entropic_hourglass"
+  }
+}
