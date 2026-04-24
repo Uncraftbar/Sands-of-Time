@@ -2,9 +2,8 @@ package com.uncraftbar.sandsoftime.client;
 
 import com.uncraftbar.sandsoftime.config.ModConfig;
 import com.uncraftbar.sandsoftime.entities.TimeAcceleratorEntity;
-import com.uncraftbar.sandsoftime.init.DataComponentRegistry;
+import com.uncraftbar.sandsoftime.init.StoredTime;
 import com.uncraftbar.sandsoftime.init.ItemRegistry;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.entity.Entity;
@@ -49,7 +48,7 @@ public class AccelerationHudOverlay {
     /**
      * Implements {@code LayeredDraw.Layer#render}.
      */
-    public static void render(GuiGraphics graphics, DeltaTracker deltaTracker) {
+    public static void render(GuiGraphics graphics, float partialTick) {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
         if (player == null || mc.level == null) return;
@@ -57,7 +56,7 @@ public class AccelerationHudOverlay {
         long currentTick = mc.level.getGameTime();
 
         // --- Part 1: Entity acceleration popup ---
-        renderEntityAccelerationPopup(graphics, mc, player, deltaTracker, currentTick);
+        renderEntityAccelerationPopup(graphics, mc, player, partialTick, currentTick);
 
         // --- Part 2: Stored time display ---
         renderStoredTimeDisplay(graphics, mc, player, currentTick);
@@ -66,11 +65,11 @@ public class AccelerationHudOverlay {
     // ========== Entity Acceleration Popup ==========
 
     private static void renderEntityAccelerationPopup(GuiGraphics graphics, Minecraft mc, Player player,
-                                                       DeltaTracker deltaTracker, long currentTick) {
+                                                       float partialTick, long currentTick) {
         // Recompute the looked-at accelerator every N game ticks
         if (currentTick < lastComputeTick || currentTick - lastComputeTick >= RECOMPUTE_INTERVAL_TICKS) {
             lastComputeTick = currentTick;
-            cachedAccelerator = computeLookedAtAccelerator(player, deltaTracker);
+            cachedAccelerator = computeLookedAtAccelerator(player, partialTick);
         }
 
         if (cachedAccelerator == null || cachedAccelerator.isRemoved()) {
@@ -107,7 +106,7 @@ public class AccelerationHudOverlay {
             return;
         }
 
-        double storedTime = hourglassStack.getOrDefault(DataComponentRegistry.STORED_TIME.get(), 0.0D);
+        double storedTime = StoredTime.get(hourglassStack);
 
         // ON_USE mode: detect when stored time DECREASES (ability was used) and show for a few seconds.
         // We only trigger on decreases to avoid firing during passive accumulation.
@@ -151,11 +150,10 @@ public class AccelerationHudOverlay {
      * Performs the expensive raycast + entity scan to find the accelerator
      * attached to whatever entity the player is currently looking at.
      */
-    private static TimeAcceleratorEntity computeLookedAtAccelerator(Player player, DeltaTracker deltaTracker) {
+    private static TimeAcceleratorEntity computeLookedAtAccelerator(Player player, float partialTick) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.level == null) return null;
 
-        float partialTick = deltaTracker.getGameTimeDeltaPartialTick(true);
         Vec3 eyePos = player.getEyePosition(partialTick);
         Vec3 lookVec = player.getViewVector(partialTick);
         Vec3 endPos = eyePos.add(lookVec.scale(LOOK_RANGE));

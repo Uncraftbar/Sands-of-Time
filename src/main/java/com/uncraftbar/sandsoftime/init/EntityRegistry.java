@@ -5,14 +5,14 @@ import com.uncraftbar.sandsoftime.entities.TimeAcceleratorEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
 public class EntityRegistry {
     public static final DeferredRegister<EntityType<?>> ENTITIES =
-            DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, SandsOfTime.MOD_ID);
+            DeferredRegister.create(net.minecraftforge.registries.ForgeRegistries.ENTITY_TYPES, SandsOfTime.MOD_ID);
 
     public static final Supplier<EntityType<TimeAcceleratorEntity>> TIME_ACCELERATOR =
             ENTITIES.register("time_accelerator", () ->

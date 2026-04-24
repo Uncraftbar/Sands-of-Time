@@ -87,11 +87,11 @@ public class TimeAcceleratorEntity extends Entity {
     // ── Data ──
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(DATA_SPEED, 1);
-        builder.define(DATA_END_TIME, 0L);
-        builder.define(DATA_MODE, 0);
-        builder.define(DATA_TARGET_UUID, Optional.empty());
+    protected void defineSynchedData() {
+        this.entityData.define(DATA_SPEED, 1);
+        this.entityData.define(DATA_END_TIME, 0L);
+        this.entityData.define(DATA_MODE, 0);
+        this.entityData.define(DATA_TARGET_UUID, Optional.empty());
     }
 
     @Override

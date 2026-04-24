@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[4,)"
+loaderVersion = "${loader_version_range}"
 license = "All Rights Reserved"
 
 [[mods]]
@@ -10,33 +10,31 @@ authors = "${mod_authors}"
 description = '''${mod_description}'''
 logoFile = "sands_of_time.png"
 
-[[accessTransformers]]
-file = "META-INF/accesstransformer.cfg"
 
 [[dependencies.${mod_id}]]
-modId = "neoforge"
-type = "required"
-versionRange = "[21.1,)"
+modId = "forge"
+mandatory = true
+versionRange = "[47,)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "minecraft"
-type = "required"
-versionRange = "[1.21.1,)"
+mandatory = true
+versionRange = "[1.20.1,1.21)"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "relics"
-type = "required"
-versionRange = "[0.10.0,)"
+mandatory = true
+versionRange = "[0.8.0,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
 modId = "curios"
-type = "required"
-versionRange = "[9.0.0,)"
+mandatory = true
+versionRange = "[5.7.0,)"
 ordering = "AFTER"
 side = "BOTH"

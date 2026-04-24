@@ -45,7 +45,7 @@ public class TimeAcceleratorRenderer extends EntityRenderer<TimeAcceleratorEntit
 
     @Override
     public ResourceLocation getTextureLocation(TimeAcceleratorEntity entity) {
-        return ResourceLocation.withDefaultNamespace("textures/misc/white.png");
+        return new ResourceLocation("minecraft", "textures/misc/white.png");
     }
 
     @Override

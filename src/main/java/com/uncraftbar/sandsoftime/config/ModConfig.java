@@ -1,21 +1,21 @@
 package com.uncraftbar.sandsoftime.config;
 
-import net.neoforged.neoforge.common.ModConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec;
 
 import java.util.List;
 
 public class ModConfig {
-    public static final ModConfigSpec SPEC;
+    public static final ForgeConfigSpec SPEC;
     public static final ModConfig INSTANCE;
 
     // ── HUD ──
-    public final ModConfigSpec.EnumValue<HudDisplayMode> storedTimeHudMode;
+    public final ForgeConfigSpec.EnumValue<HudDisplayMode> storedTimeHudMode;
 
     // ── Block blacklist ──
-    public final ModConfigSpec.ConfigValue<List<? extends String>> blockBlacklist;
+    public final ForgeConfigSpec.ConfigValue<List<? extends String>> blockBlacklist;
 
     // ── Entity blacklist ──
-    public final ModConfigSpec.ConfigValue<List<? extends String>> entityBlacklist;
+    public final ForgeConfigSpec.ConfigValue<List<? extends String>> entityBlacklist;
 
     public enum HudDisplayMode {
         ON_USE,
@@ -23,7 +23,7 @@ public class ModConfig {
         OFF
     }
 
-    ModConfig(ModConfigSpec.Builder builder) {
+    ModConfig(ForgeConfigSpec.Builder builder) {
         builder.push("entropic_hourglass");
 
         builder.translation("config.sands_of_time.entropic_hourglass")
@@ -50,7 +50,6 @@ public class ModConfig {
                 .defineListAllowEmpty(
                         "blockBlacklist",
                         List.of(),
-                        () -> "",
                         o -> o instanceof String
                 );
 
@@ -64,7 +63,6 @@ public class ModConfig {
                 .defineListAllowEmpty(
                         "entityBlacklist",
                         List.of(),
-                        () -> "",
                         o -> o instanceof String
                 );
 
@@ -72,7 +70,7 @@ public class ModConfig {
     }
 
     static {
-        var pair = new ModConfigSpec.Builder().configure(ModConfig::new);
+        var pair = new ForgeConfigSpec.Builder().configure(ModConfig::new);
         INSTANCE = pair.getLeft();
         SPEC = pair.getRight();
     }

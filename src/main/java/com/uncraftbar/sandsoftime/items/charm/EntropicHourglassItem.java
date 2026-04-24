@@ -3,7 +3,7 @@ package com.uncraftbar.sandsoftime.items.charm;
 import com.uncraftbar.sandsoftime.SandsOfTime;
 import com.uncraftbar.sandsoftime.config.ModConfig;
 import com.uncraftbar.sandsoftime.entities.TimeAcceleratorEntity;
-import com.uncraftbar.sandsoftime.init.DataComponentRegistry;
+import com.uncraftbar.sandsoftime.init.StoredTime;
 import com.uncraftbar.sandsoftime.init.EntityRegistry;
 import com.uncraftbar.sandsoftime.init.ItemRegistry;
 import com.uncraftbar.sandsoftime.items.base.AddonRelicItem;
@@ -15,14 +15,9 @@ import it.hurts.sskirillss.relics.items.relics.base.data.leveling.AbilitiesData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.AbilityData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.LevelingData;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.StatData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.LevelingSourceData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.LevelingSourcesData;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.GemColor;
-import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.GemShape;
 import it.hurts.sskirillss.relics.items.relics.base.data.leveling.misc.UpgradeOperation;
 import it.hurts.sskirillss.relics.items.relics.base.data.loot.LootData;
-import it.hurts.sskirillss.relics.items.relics.base.data.loot.misc.LootEntries;
-import it.hurts.sskirillss.relics.items.relics.base.data.research.ResearchData;
+import it.hurts.sskirillss.relics.items.relics.base.data.loot.misc.LootCollections;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.StyleData;
 import it.hurts.sskirillss.relics.items.relics.base.data.style.TooltipData;
 import it.hurts.sskirillss.relics.utils.MathUtils;
@@ -97,19 +92,7 @@ public class EntropicHourglassItem extends AddonRelicItem {
                                         .upgradeModifier(UpgradeOperation.MULTIPLY_BASE, 0.2D)
                                         .formatValue(value -> MathUtils.round(value, 2))
                                         .build())
-                                .research(ResearchData.builder()
-                                        // Hourglass shape: wide top, narrow middle, wide bottom
-                                        .star(0, 5, 7).star(1, 17, 7)    // top-left, top-right
-                                        .star(2, 7, 13).star(3, 15, 13)    // upper-mid-left, upper-mid-right
-                                        .star(4, 11, 15)                  // center pinch
-                                        .star(5, 7, 17).star(6, 15, 17)  // lower-mid-left, lower-mid-right
-                                        .star(7, 5, 23).star(8, 17, 23)  // bottom-left, bottom-right
-                                        .link(0, 2).link(1, 3)          // top to upper-mid
-                                        .link(2, 4).link(3, 4)          // upper-mid to center
-                                        .link(4, 5).link(4, 6)          // center to lower-mid
-                                        .link(5, 7).link(6, 8)          // lower-mid to bottom
-                                        .link(0, 1).link(7, 8)          // top bar, bottom bar
-                                        .build())
+
                                 .build())
                         // ── Temporal Injection (active, level 3, max upgrade 5) ──
                         .ability(AbilityData.builder("temporal_injection")
@@ -123,19 +106,7 @@ public class EntropicHourglassItem extends AddonRelicItem {
                                 .active(CastData.builder()
                                         .type(CastType.INSTANTANEOUS)
                                         .build())
-                                .research(ResearchData.builder()
-                                    // Stars
-                                    .star(0, 5, 7).star(1, 17, 7)
-                                    .star(2, 6, 13).star(3, 16, 13)
-                                    .star(4, 11, 15).star(5, 6, 17)
-                                    .star(6, 16, 17).star(7, 5, 23)
-                                    .star(8, 17, 23)
-                                    // Connections
-                                    .link(0, 2).link(1, 3).link(2, 4)
-                                    .link(3, 4).link(4, 5).link(4, 6)
-                                    .link(5, 7).link(6, 8).link(7, 8)
-                                    .link(0, 1)
-                                    .build())
+
                                 .build())
                         // ── Bio-Overclock (active, level 8, max upgrade 7) ──
                         .ability(AbilityData.builder("bio_overclock")
@@ -149,45 +120,19 @@ public class EntropicHourglassItem extends AddonRelicItem {
                                 .active(CastData.builder()
                                         .type(CastType.INSTANTANEOUS)
                                         .build())
-                                .research(ResearchData.builder()
-                                    // Stars
-                                    .star(0, 5, 3).star(1, 17, 3)
-                                    .star(2, 11, 9).star(3, 6, 15)
-                                    .star(4, 16, 15).star(5, 11, 21)
-                                    .star(6, 5, 28).star(7, 17, 28)
-                                    // Connections
-                                    .link(0, 2).link(1, 2).link(2, 3)
-                                    .link(2, 4).link(3, 5).link(4, 5)
-                                    .link(5, 6).link(5, 7).link(6, 7)
-                                    .link(3, 4).link(0, 1)
-                                    .build())
+
                                 .build())
                         .build())
                 .leveling(LevelingData.builder()
                         .initialCost(50)
                         .maxLevel(15)
                         .step(50)
-                        .sources(LevelingSourcesData.builder()
-                                .source(LevelingSourceData.abilityBuilder("chrono_accumulation")
-                                        .initialValue(1)
-                                        .gem(GemShape.SQUARE, GemColor.CYAN)
-                                        .build())
-                                .source(LevelingSourceData.abilityBuilder("temporal_injection")
-                                        .initialValue(2)
-                                        .gem(GemShape.SQUARE, GemColor.GREEN)
-                                        .build())
-                                .source(LevelingSourceData.abilityBuilder("bio_overclock")
-                                        .initialValue(1)
-                                        .gem(GemShape.SQUARE, GemColor.RED)
-                                        .build())
-                                .build())
                         .build())
                 .loot(LootData.builder()
-                        .entry(LootEntries.CAVE, LootEntries.THE_END)
+                        .entry(LootCollections.DESERT)
                         .build())
                 .style(StyleData.builder()
                         .tooltip(TooltipData.builder()
-                                .textured(false)
                                 .build())
                         .build())
                 .build();
@@ -198,9 +143,9 @@ public class EntropicHourglassItem extends AddonRelicItem {
     // ═══════════════════════════════════════════════════════════════════════
 
     @Override
-    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        double stored = stack.getOrDefault(DataComponentRegistry.STORED_TIME.get(), 0.0D);
+    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        super.appendHoverText(stack, level, tooltipComponents, tooltipFlag);
+        double stored = StoredTime.get(stack);
         tooltipComponents.add(Component.translatable("tooltip.sands_of_time.entropic_hourglass.stored_time",
                 formatTime(stored)));
     }
@@ -239,7 +184,7 @@ public class EntropicHourglassItem extends AddonRelicItem {
      * Uses a UUID-keyed dedup guard to prevent double accumulation from Curios.
      */
     private void accumulateTime(ItemStack stack, Player player) {
-        if (!this.isAbilityUnlocked(stack, "chrono_accumulation")) return;
+        if (!this.canUseAbility(stack, "chrono_accumulation")) return;
         long gameTime = player.level().getGameTime();
         if (gameTime % ACCUMULATION_WRITE_INTERVAL != 0) return;
 
@@ -255,15 +200,15 @@ public class EntropicHourglassItem extends AddonRelicItem {
             lastCastTick.values().removeIf(tick -> (gameTime - tick) > MIN_CAST_INTERVAL_TICKS * 10);
         }
 
-        double rate = this.getStatValue(stack, "chrono_accumulation", "accumulation_rate");
-        double currentTime = stack.getOrDefault(DataComponentRegistry.STORED_TIME.get(), 0.0D);
+        double rate = this.getAbilityValue(stack, "chrono_accumulation", "accumulation_rate");
+        double currentTime = StoredTime.get(stack);
         double increment = (rate / 20.0D) * ACCUMULATION_WRITE_INTERVAL;
         double newTime = currentTime + increment;
-        stack.set(DataComponentRegistry.STORED_TIME.get(), newTime);
+        StoredTime.set(stack, newTime);
 
         // Grant XP when stored time crosses a 1-minute (60s) threshold
         if ((int) (currentTime / 60.0) < (int) (newTime / 60.0)) {
-            this.spreadRelicExperience(player, stack, 1);
+            this.spreadExperience(player, stack, 1);
         }
     }
 
@@ -277,7 +222,7 @@ public class EntropicHourglassItem extends AddonRelicItem {
         if (level.isClientSide()) return;
 
         // Server-side unlock check — prevents spoofed packets from using locked abilities
-        if (!this.isAbilityUnlocked(stack, ability)) return;
+        if (!this.canUseAbility(stack, ability)) return;
 
         // Minimal server-side anti-spam (250ms between casts) using monotonic game time
         UUID playerId = player.getUUID();
@@ -337,7 +282,7 @@ public class EntropicHourglassItem extends AddonRelicItem {
         }
 
         // Stat value
-        double maxMult = this.getStatValue(stack, "temporal_injection", "max_multiplier");
+        double maxMult = this.getAbilityValue(stack, "temporal_injection", "max_multiplier");
         int maxMultInt = Math.max(1, (int) Math.floor(maxMult));
 
         // Find existing accelerators on this block
@@ -361,7 +306,7 @@ public class EntropicHourglassItem extends AddonRelicItem {
             boolean isRefresh = true;
 
             double cost = COST_PER_LEVEL * nextSpeed;
-            double storedTime = stack.getOrDefault(DataComponentRegistry.STORED_TIME.get(), 0.0D);
+            double storedTime = StoredTime.get(stack);
 
             if (storedTime < cost) {
                 player.displayClientMessage(Component.translatable("message.sands_of_time.insufficient_time"), true);
@@ -371,9 +316,9 @@ public class EntropicHourglassItem extends AddonRelicItem {
             TimeAcceleratorEntity primary = existingAccelerators.get(0);
             primary.addRemainingTicks(DURATION_TICKS);
 
-            stack.set(DataComponentRegistry.STORED_TIME.get(), storedTime - cost);
+            StoredTime.set(stack, storedTime - cost);
             int xpAward = Math.max(1, (int) (cost / 30.0D));
-            this.spreadRelicExperience(player, stack, xpAward);
+            this.spreadExperience(player, stack, xpAward);
 
             player.displayClientMessage(Component.translatable("message.sands_of_time.block_refreshed",
                     nextSpeed, formatTime(cost)), true);
@@ -413,7 +358,7 @@ public class EntropicHourglassItem extends AddonRelicItem {
             cost = COST_PER_LEVEL * nextSpeed;
         }
 
-        double storedTime = stack.getOrDefault(DataComponentRegistry.STORED_TIME.get(), 0.0D);
+        double storedTime = StoredTime.get(stack);
         if (storedTime < cost) {
             player.displayClientMessage(Component.translatable("message.sands_of_time.insufficient_time"), true);
             return;
@@ -435,9 +380,9 @@ public class EntropicHourglassItem extends AddonRelicItem {
         }
 
         // Deduct cost
-        stack.set(DataComponentRegistry.STORED_TIME.get(), storedTime - cost);
+        StoredTime.set(stack, storedTime - cost);
         int xpAward = Math.max(1, (int) (cost / 30.0D));
-        this.spreadRelicExperience(player, stack, xpAward);
+        this.spreadExperience(player, stack, xpAward);
 
         if (isRefresh) {
             player.displayClientMessage(Component.translatable("message.sands_of_time.block_refreshed",
@@ -474,14 +419,14 @@ public class EntropicHourglassItem extends AddonRelicItem {
         }
 
         // Check entity blacklist
-        ResourceLocation entityId = BuiltInRegistries.ENTITY_TYPE.getKey(target.getType());
+        ResourceLocation entityId = net.minecraftforge.registries.ForgeRegistries.ENTITY_TYPES.getKey(target.getType());
         if (ModConfig.INSTANCE.entityBlacklist.get().contains(entityId.toString())) {
             player.displayClientMessage(Component.translatable("message.sands_of_time.entity_blacklisted"), true);
             return;
         }
 
         // Stat value
-        double potencyRaw = this.getStatValue(stack, "bio_overclock", "potency");
+        double potencyRaw = this.getAbilityValue(stack, "bio_overclock", "potency");
         int multiplier = Math.max(1, (int) Math.floor(potencyRaw));
 
         // Check for existing entity accelerators
@@ -501,7 +446,7 @@ public class EntropicHourglassItem extends AddonRelicItem {
         // This prevents cheap refreshing of a stronger overclock placed by another player
         int effectiveSpeed = Math.max(multiplier, currentEntitySpeed);
         double cost = COST_PER_LEVEL * effectiveSpeed;
-        double storedTime = stack.getOrDefault(DataComponentRegistry.STORED_TIME.get(), 0.0D);
+        double storedTime = StoredTime.get(stack);
         if (storedTime < cost) {
             player.displayClientMessage(Component.translatable("message.sands_of_time.insufficient_time"), true);
             return;
@@ -527,9 +472,9 @@ public class EntropicHourglassItem extends AddonRelicItem {
         }
 
         // Deduct cost
-        stack.set(DataComponentRegistry.STORED_TIME.get(), storedTime - cost);
+        StoredTime.set(stack, storedTime - cost);
         int xpAward = Math.max(1, (int) (cost / 30.0D));
-        this.spreadRelicExperience(player, stack, xpAward);
+        this.spreadExperience(player, stack, xpAward);
         player.displayClientMessage(Component.translatable("message.sands_of_time.entity_overclocked",
                 target.getDisplayName(), effectiveSpeed, formatTime(cost)), true);
     }
