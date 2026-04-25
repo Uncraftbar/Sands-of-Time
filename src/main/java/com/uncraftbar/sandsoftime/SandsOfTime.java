@@ -11,6 +11,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.client.ConfigScreenHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +35,9 @@ public class SandsOfTime {
         // Client-only setup (all client class references are in ClientSetup to avoid server NoClassDefFoundError)
         if (FMLEnvironment.dist.isClient()) {
             com.uncraftbar.sandsoftime.client.ClientSetup.init(modEventBus);
+            ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
+                    () -> new ConfigScreenHandler.ConfigScreenFactory((minecraft, parent) ->
+                            new com.uncraftbar.sandsoftime.client.config.SandsConfigScreen(parent)));
         }
 
         // Server events

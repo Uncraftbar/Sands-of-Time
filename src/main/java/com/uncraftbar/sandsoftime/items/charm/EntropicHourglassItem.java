@@ -111,7 +111,7 @@ public class EntropicHourglassItem extends AddonRelicItem {
                         // ── Bio-Overclock (active, level 8, max upgrade 7) ──
                         .ability(AbilityData.builder("bio_overclock")
                                 .requiredLevel(8)
-                                .maxLevel(7)
+                                .maxLevel(5)
                                 .stat(StatData.builder("potency")
                                         .initialValue(2.0D, 8.0D)
                                         .upgradeModifier(UpgradeOperation.MULTIPLY_BASE, 0.2D)
